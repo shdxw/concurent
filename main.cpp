@@ -7,6 +7,7 @@
 #include <sstream>
 #include <fstream>
 #include "struct_mapping/struct_mapping.h"
+#include "reduction.h"
 
 #define STEPS 100000000
 #define CACHE_LINE 64u
@@ -91,6 +92,22 @@ void show_experiment_results_py(I_t I, std::string name)
     }
 
     system("python python/main.py");
+};
+
+void show_experiment_results_cli(I_t I, std::string name)
+{
+    double T1;
+    std::cout << "integrate_cpp" << '\n';
+    printf("%10s\t%10s\t%10s\n", "Result", "Time_ms", "Speed");
+    for (int T = 1; T <= omp_get_num_procs(); ++T) {
+        ExperimentResult R;
+        set_num_threads(T);
+        R = runExperiment(I);
+        if(T == 1)
+            T1 = R.time;
+        printf("%10g\t%10g\t%10g\n", R.result, R.time, T1 / R.time);
+    };
+    std::cout << '\n';
 };
 
 double integrateDefault(double a, double b, f_t f) {
@@ -274,6 +291,10 @@ double integrateAtomic(double a, double b, f_t f) {
     return result * dx;
 }
 
+double integrateReduce(double a, double b, f_t f) {
+    return reduce_range(a, b, STEPS, f, [](auto x, auto y) {return x + y;}, 0.0) * ((b-a)/STEPS);
+}
+
 
 void showExperimentResults(I_t I) {
     omp_set_num_threads(1);
@@ -304,6 +325,7 @@ int main() {
     show_experiment_results_py(integrateReduction, "REDUCTION");
     show_experiment_results_py(integratePS, "PS");
     show_experiment_results_py(integrateAtomic, "ATOMIC");
+    show_experiment_results_py(integrateReduce, "REDUCE");
 
     return 0;
 }
