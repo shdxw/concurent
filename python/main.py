@@ -27,7 +27,6 @@ def histoogramm(data):
         os.mkdir("results")
     name = "results/%s" % data["name"]
     plt.savefig(name)
-    plt.show()
 
 if __name__ == "__main__":
     data1 = db.read("1.json", "graphics")
