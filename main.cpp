@@ -97,7 +97,7 @@ void show_experiment_results_py(I_t I, std::string name)
 void show_experiment_results_cli(I_t I, std::string name)
 {
     double T1;
-    std::cout << "integrate_cpp" << '\n';
+    std::cout << name << '\n';
     printf("%10s\t%10s\t%10s\n", "Result", "Time_ms", "Speed");
     for (int T = 1; T <= omp_get_num_procs(); ++T) {
         ExperimentResult R;
@@ -325,7 +325,7 @@ int main() {
     show_experiment_results_cli(integrateReduction, "REDUCTION");
     show_experiment_results_cli(integratePS, "PS");
     show_experiment_results_cli(integrateAtomic, "ATOMIC");
-    show_experiment_results_cli(integrateReduce, "REDUCE");
+    //show_experiment_results_cli(integrateReduce, "REDUCE");
 
     return 0;
 }
