@@ -317,15 +317,15 @@ void showExperimentResults(I_t I) {
 }
 
 int main() {
-    show_experiment_results_py(integrateDefault, "DEFAULT");
-    show_experiment_results_py(integrateCrit, "CRIT");
-    show_experiment_results_py(integrateMutex, "MUTEX");
-    show_experiment_results_py(integrateArr, "ARR");
-    show_experiment_results_py(integrateArrAlign, "ARRALIGN");
-    show_experiment_results_py(integrateReduction, "REDUCTION");
-    show_experiment_results_py(integratePS, "PS");
-    show_experiment_results_py(integrateAtomic, "ATOMIC");
-    show_experiment_results_py(integrateReduce, "REDUCE");
+    show_experiment_results_cli(integrateDefault, "DEFAULT");
+    show_experiment_results_cli(integrateCrit, "CRIT");
+    show_experiment_results_cli(integrateMutex, "MUTEX");
+    show_experiment_results_cli(integrateArr, "ARR");
+    show_experiment_results_cli(integrateArrAlign, "ARRALIGN");
+    show_experiment_results_cli(integrateReduction, "REDUCTION");
+    show_experiment_results_cli(integratePS, "PS");
+    show_experiment_results_cli(integrateAtomic, "ATOMIC");
+    show_experiment_results_cli(integrateReduce, "REDUCE");
 
     return 0;
 }
